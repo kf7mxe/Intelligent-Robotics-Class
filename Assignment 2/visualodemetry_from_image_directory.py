@@ -48,7 +48,7 @@ i = 1
 visualOdemetry = MonoVideoOdometery(pose=None,cameraMatrix=mtx, distortionCoefficients=dist)
 
 # get the first image from folder video/video/frame1.png
-frame = cv2.imread(cwd+'/Assignment 2/video/test/image1.png')
+frame = cv2.imread(cwd+'/video/test/image1.png')
 visualOdemetry.old_frame = frame
 
 traj = np.zeros(shape=(600, 800, 3))
@@ -60,7 +60,7 @@ record_map = True
 while(i < 214):
     print("file path")
     print('video/test/image' + str(i+1) + '.png')
-    filepath = cwd+'/Assignment 2/video/test/image' + str(i+1) + '.png'
+    filepath = cwd+'/video/test/image' + str(i+1) + '.png'
     frame = cv2.imread(filepath)
      # save frame to folder called video
     # frames.append(frame)
