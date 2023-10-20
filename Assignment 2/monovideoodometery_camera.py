@@ -93,15 +93,14 @@ class MonoVideoOdometery(object):
         # our t and R vectors so behavior is different
         if self.id < 2:
             E, _ = cv2.findEssentialMat(self.good_new, self.good_old, self.cameraMatrix, cv2.RANSAC, 0.999, 1.0, None)
-            # _, self.R, self.t, _ = cv2.recoverPose(E, self.good_old, self.good_new, self.R, self.t, self.focal, self.pp, None)
             _, self.R, self.t, _ = cv2.recoverPose(E, self.good_old, self.good_new, cameraMatrix=self.cameraMatrix, R=self.R, t=self.t, mask=None)
 
         else:
             E, _ = cv2.findEssentialMat(self.good_new, self.good_old, self.cameraMatrix, cv2.RANSAC, 0.999, 1.0, None)
             _, R, t, _ = cv2.recoverPose(E, self.good_old, self.good_new, cameraMatrix=self.cameraMatrix,R= self.R.copy(), t = self.t.copy(), mask=None)
 
-            absolute_scale = 0.5
-            if (absolute_scale > 0.1 and abs(t[2][0]) > abs(t[0][0]) and abs(t[2][0]) > abs(t[1][0])):
+            absolute_scale = 25
+            if (absolute_scale > 1 and abs(t[2][0]) > abs(t[0][0]) and abs(t[2][0]) > abs(t[1][0])):
                 self.t = self.t + absolute_scale*self.R.dot(t)
                 self.R = R.dot(self.R)
 
@@ -157,6 +156,7 @@ class MonoVideoOdometery(object):
     def process_frame(self, frame, id):
         '''Processes images in sequence frame by frame
         '''
+
         self.id = id
         if self.id<2:
             self.current_frame = frame
