@@ -48,7 +48,7 @@ i = 1
 visualOdemetry = MonoVideoOdometery(pose=None,cameraMatrix=mtx, distortionCoefficients=dist)
 
 # get the first image from folder video/video/frame1.png
-frame = cv2.imread(cwd+'/video/test/image1.png')
+frame = cv2.imread(cwd+'/Assignment 2/video/test/image1.png')
 visualOdemetry.old_frame = frame
 
 traj = np.zeros(shape=(600, 800, 3))
@@ -57,13 +57,13 @@ every = 100
 frames = []
 record_map = True
 # while(capture.isOpened()):
-while(i < 214):
+while(i < 173):
     print("file path")
     print('video/test/image' + str(i+1) + '.png')
-    filepath = cwd+'/video/test/image' + str(i+1) + '.png'
+    filepath = cwd+'/Assignment 2/video/test/image' + str(i+1) + '.png'
     frame = cv2.imread(filepath)
      # save frame to folder called video
-    # frames.append(frame)
+    frames.append(frame)
 
     visualOdemetry.process_frame(frame,i)
     mono_coord = visualOdemetry.get_mono_coordinates()
@@ -81,8 +81,23 @@ while(i < 214):
 cv2.imwrite('map.png', traj)
 # capture.release()
 
-for i in frames:
-    # save frame to folder called video
-    cv2.imwrite('video/' + str(i) + '.png', i)
+# for i in frames:
+#     # save frame to folder called video
+#     cv2.imwrite('video/' + str(i) + '.png', i)
 
 # cv2.destroyAllWindows()
+
+# save frames to video
+
+height, width = frames[0].shape[:2]
+print("height")
+print(height)
+print("width")
+print(width)
+
+video = cv2.VideoWriter('video.avi',cv2.VideoWriter_fourcc(*'DIVX'), 15, (width,height))
+for i in range(len(frames)):
+    video.write(frames[i])
+
+cv2.destroyAllWindows()
+video.release()

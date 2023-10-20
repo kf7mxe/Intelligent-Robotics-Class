@@ -99,8 +99,8 @@ class MonoVideoOdometery(object):
             E, _ = cv2.findEssentialMat(self.good_new, self.good_old, self.cameraMatrix, cv2.RANSAC, 0.999, 1.0, None)
             _, R, t, _ = cv2.recoverPose(E, self.good_old, self.good_new, cameraMatrix=self.cameraMatrix,R= self.R.copy(), t = self.t.copy(), mask=None)
 
-            absolute_scale = 25
-            if (absolute_scale > 1 and abs(t[2][0]) > abs(t[0][0]) and abs(t[2][0]) > abs(t[1][0])):
+            absolute_scale = 50
+            if (absolute_scale > 5 and abs(t[2][0]) > abs(t[0][0]) and abs(t[2][0]) > abs(t[1][0])):
                 self.t = self.t + absolute_scale*self.R.dot(t)
                 self.R = R.dot(self.R)
 
