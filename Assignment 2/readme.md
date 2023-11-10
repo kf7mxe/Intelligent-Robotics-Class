@@ -1,4 +1,22 @@
 # Assignment 2
+
+## How to run
+
+There are multiple ways to run the monocular odometry algorithm in this repo.
+* live camera feed
+* image clips
+
+## Live camera feed
+To run
+```python visual_odemetry_live_camera_feed.py ```
+
+## Image clips
+To run
+``` python visualodemetry_from_image_directory.py ```
+
+
+
+
 ## Project organization
 There are two ways to run the visual odemetry using two different python scripts. 
 * visual_odemetry_live_camera_feed.py - This script runs the visual odemetry using the live camera feed from the webcam.
